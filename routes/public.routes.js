@@ -10,23 +10,20 @@ const { siExisteRol, siExisteEmail } = require ('../middlewares/Validaciones'); 
 
 // Requerimos los controladores (funciones que contendrán la lógica del endpoint)
  const {
-     rutaGet, rutaPost, rutaLogin, rutaPut, rutaDelete
- } = require('../controllers/users.controllers')
+     rutaGet, rutaPost, rutaPut, rutaDelete
+ } = require('../controllers/public.controllers')
 
 //  Ruta para obtener todos los usuarios
-router.get('/api/get-user', rutaGet)
+router.get('/api/get-publicaciones', rutaGet)
 
 // Ruta para guardar un usuario
-router.post('/api/create-user',rutaPost)
-
-router.post('/api/login-user', rutaLogin)
+router.post('/api/create-publicacion',rutaPost)
 
 // Actualizar usuarios
-router.put('/api/edit-user/:id', rutaPut)
-
+router.put('/api/edit-publicacion/:id', rutaPut)
 
 // Ruta para eliminar un usuario
-router.delete('/api/delete-user/:id',rutaDelete)
+router.delete('/api/delete-publicacion/:id',rutaDelete)
 
 
 module.exports = router;

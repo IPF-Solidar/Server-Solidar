@@ -18,12 +18,16 @@ const PublicarSchema = new Schema({
 
     },
     fechaInicio: {
-        type: Date,
+        type: String,
         required: true
     },
     fechaFinal: {
-        type: Date,
+        type: String,
         required: true
+    },
+    activo: {
+        type: Boolean,
+        default: true
     }
 });
-module.exports = model('Publicar', PublicarSchema);
+module.exports = model('Public', PublicarSchema);

@@ -18,6 +18,7 @@ app.set('port', process.env.PORT || 4000);
 
 // Routes
 app.use(require('./routes/user.routes'));
- 
+app.use(require('./routes/public.routes'));
+
 //Ponemos el servidor en escucha...
 app.listen(app.get('port'), ()=> console.log(`Server en linea en el puerto: ${app.get('port')}`))
