@@ -2,62 +2,55 @@ const ctrlPublic = {};
 // Requerimos el modelo de datos de usuario 
 const Public = require('../models/publicaciones');
 
-/* const {generar_jwt} = require('../helpers/generar_jwt') */
 
 
-// Devuelve todos los usuarios activos de la colección
+
+// Devuelve todos las publicaciones activas de la colección
 ctrlPublic.rutaGet = async (req, res) => {
-    const publicaciones = await Public.find({ activo: true }) // consulta para todos los documentos
+    const publicaciones = await Public.find().populate('autor',['nombre','apellido']); // consulta para todos los documentos
+    /* const publicaciones = await Public.find().populate('userId','nombre','apellido'); */
     
     // Respuesta del servidor
     res.json(publicaciones);
 }
 
+ctrlPublic.rutaGetUnico = async (req, res) => {
+    const { id } = req.params;
+    
+    try {
+        // Ejecución normal del programa
+       const publicaciones=  await Public.findById(id)
+
+       //respuesta del servidor
+       res.json(publicaciones);
+    } catch (error) {
+        // Si ocurre un error 
+        console.log('Error al mostrar el usuario: ', error)
+    }
+};
 
 
-// Controlador que almacena un nuevo usuario
+
+// Controlador que almacena una nueva publicacion
 ctrlPublic.rutaPost = async (req, res) => {
      // Desestructuramos la información recibida del cliente
-    const { titulo,resumen, descripcion,imagen,fechaInicio,fechaFinal} = req.body;
+    /* const { autor,titulo,resumen, descripcion,imagen,fechaInicio,fechaFinal} = req.body;
     // Se alamacena el nuevo usuario en la base de datos
-    const publicacion = new Public({titulo,resumen, descripcion,imagen,fechaInicio,fechaFinal});
-    await publicacion.save() 
+    const publicacion = new Public({autor,titulo,resumen, descripcion,imagen,fechaInicio,fechaFinal});
+    await publicacion.save()  */
+
+    const body=req.body;
+    body.autor = req.usuario._id
+    const publicacion = new Public(body)
+    //console.log(publicacion)
+    await publicacion.save();
 
     res.json({msg: 'La publicación se envio correctamente'});
 }
 
-// Controlador para login del usuario y devolver un token
-/* ctrlPublic.rutaLogin = async (req, res) => {
-    const { email, password} = req.body;
-   // console.log(email,password)
-    const user = await Public.findOne({email, password});
-   //console.log(user)
-   
-    //Si no encuentra el usuario
-    if(!user){
-        return res.status(401).json({
-            msg: "Usuario no existe"
-        })
-    };
-
-    //verificamos si es un usuario activo
-    if(!user.activo){
-        res.status(401).json({
-            msg: "Usuario no existe"
-        })
-    }
-
-    //Si lo encuentra
-    // Generar el token
-    const token = await generar_jwt(user.id); 
-    
-    res.json({
-        token     //se envia el token generado
-    }); 
-} */
 
 
-// Controlador que actualiza información de los usuarios
+// Controlador que actualiza información de las publicaciones
 ctrlPublic.rutaPut = async (req, res) => {
     const { titulo,resumen, descripcion,imagen, id } = req.body
 
@@ -69,7 +62,7 @@ ctrlPublic.rutaPut = async (req, res) => {
     })
 }
 
-// Controlador para eliminar un usuario de la BD físicamente
+// Controlador para eliminar una publicacion de la BD físicamente
 ctrlPublic.rutaDelete = async (req, res) => {
     const { id } = req.body;
     
@@ -85,18 +78,6 @@ ctrlPublic.rutaDelete = async (req, res) => {
         console.log('Error al eliminar la Publicación: ', error)
     }
 };
-
-// Cambiar el estado activo de un usuario (Eliminación lógica)
-/* ctrlPublic.deleteUser = async (req, res) => {
-    const { id }  = req.body
-    const publicacion = await Public.findByIdAndUpdate(id, { activo: false }, { new: true });
-
-    // Respuesta del servidor
-    res.json({
-        msg: 'Publicación eliminada correctamente',
-        publicacion
-    });
-} */
 
 
 

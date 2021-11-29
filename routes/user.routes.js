@@ -24,7 +24,9 @@ rutaGet)
 // Ruta para guardar un usuario
 router.post('/api/create-user',
 
-body('username','El usuario es incorrecto')
+body('nombre','El nombre es incorrecto')
+,
+body('apellido','El apellido es incorrecto')
 ,
 body('password','La contraseña debe contener 6 caracteres')
 .isLength({min: 6})

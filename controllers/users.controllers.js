@@ -18,9 +18,9 @@ ctrlHome.rutaGet = async (req, res) => {
 // Controlador que almacena un nuevo usuario
 ctrlHome.rutaPost = async (req, res) => {
      // Desestructuramos la información recibida del cliente
-    const { username,email, password} = req.body;
+    const { nombre,apellido,dni,fecha_nacimiento,domicilio,email, password} = req.body;
     // Se alamacena el nuevo usuario en la base de datos
-    const user = new User({username,email, password});
+    const user = new User({nombre,apellido,dni,fecha_nacimiento,domicilio,email, password});
     await user.save() 
 
     res.json({msg: 'El usuario se creo correctamente'});
@@ -51,17 +51,19 @@ ctrlHome.rutaLogin = async (req, res) => {
     // Generar el token
     const token = await generar_jwt(user.id); 
     
+    
     res.json({
-        token     //se envia el token generado
+        token, 
+           //se envia el token generado
     }); 
 }
 
 
 // Controlador que actualiza información de los usuarios
 ctrlHome.rutaPut = async (req, res) => {
-    const { username, password,role, id } = req.body
+    const { nombre,apellido,dni,fecha_nacimiento,domicilio,email, password, id } = req.body
 
-    const user = await User.findByIdAndUpdate(id, {username, password,role}, { new: true })
+    const user = await User.findByIdAndUpdate(id, {nombre,apellido,dni,fecha_nacimiento,domicilio,email, password}, { new: true })
    
     res.json({
         msg: 'Usuario actualizado correctamente',

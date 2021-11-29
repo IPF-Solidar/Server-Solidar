@@ -14,9 +14,6 @@ const verficarAdmin = (req, res = response, next) => {
             msg:"No tiene permisos"
         })
     };
-
-    
-
     next(); 
 };
 

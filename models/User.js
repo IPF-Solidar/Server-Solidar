@@ -1,7 +1,25 @@
 const { model, Schema } = require('mongoose');
 
+//provincia - localidad
+
 const UserSchema = new Schema({
-    username: {
+    nombre: {
+        type: String,
+        required: true
+    },
+    apellido: {
+        type: String,
+        required: true
+    },
+    dni: {
+        type: Number,
+        required: true
+    },
+    fecha_nacimiento: {
+        type: String,
+        required: true
+    },
+    domicilio: {
         type: String,
         required: true
     },
