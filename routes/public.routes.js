@@ -3,7 +3,7 @@ const router = require('express').Router();
 const { body } = require('express-validator');
 const {validar_jwt} = require('../middlewares/validar_jwt')
 const { validarCampos } = require ('../helpers/validar_campos');
-
+const upload = require('../libs/storage')
 /* 
 const {verficarAdmin} = require('../middlewares/validar_roles')
 const { siExisteRol, siExisteEmail } = require ('../middlewares/Validaciones'); */
@@ -22,7 +22,8 @@ router.get('/api/get-publicaciones/:id',
 rutaGetUnico)
 
 // Ruta para guardar las publicaciones
-router.post('/api/create-publicacion',
+router.post('/api/create-publicacion',upload.single('image'),
+validar_jwt,
 rutaPost)
 
 // Actualizar las publicaciones

@@ -1,4 +1,5 @@
 const ctrlPublic = {};
+const { body } = require('express-validator');
 // Requerimos el modelo de datos de usuario 
 const Public = require('../models/publicaciones');
 
@@ -34,16 +35,58 @@ ctrlPublic.rutaGetUnico = async (req, res) => {
 // Controlador que almacena una nueva publicacion
 ctrlPublic.rutaPost = async (req, res) => {
      // Desestructuramos la información recibida del cliente
-    /* const { autor,titulo,resumen, descripcion,imagen,fechaInicio,fechaFinal} = req.body;
+     console.log(req.body);
+    const { titulo, descripcion,departamento,objetivo,urlYoutube,fechaFinal} = req.body;
     // Se alamacena el nuevo usuario en la base de datos
-    const publicacion = new Public({autor,titulo,resumen, descripcion,imagen,fechaInicio,fechaFinal});
-    await publicacion.save()  */
+   
+    const autor= req.usuario._id;
 
-    const body=req.body;
-    body.autor = req.usuario._id
-    const publicacion = new Public(body)
+
+    const publicacion = new Public({autor,titulo, descripcion,departamento,objetivo,urlYoutube,fechaFinal});
+
+    if(req.file){
+        const { filename }= req.file
+        publicacion.setImgUrl(filename) 
+    }
+
+    await publicacion.save() 
+
+    /* const publica=req.body; */
+    /* body.autor = req.usuario._id; */
+    /* console.log(publica)
+    if(req.file){
+        const { filename }= req.file
+        publica.setImgUrl(filename) 
+    } */
+
+  /*   const publicacion = new Public(publica)
     //console.log(publicacion)
-    await publicacion.save();
+    await publicacion.save(); */
+
+    /* const {
+        titulo,
+        descripcion,
+        objetivo,
+        fechaFinal
+    } = req.body
+
+    const public = Public({
+        titulo,
+        descripcion,
+        objetivo,
+        fechaFinal
+    }) */
+
+   /*  if(req.file){
+        const { filename }= req.file
+        public.setImgUrl(filename) 
+    } */
+
+    /* const publicaciones = await public.save()
+
+    res.status(201).send({publicaciones}) */
+
+    
 
     res.json({msg: 'La publicación se envio correctamente'});
 }
@@ -52,9 +95,9 @@ ctrlPublic.rutaPost = async (req, res) => {
 
 // Controlador que actualiza información de las publicaciones
 ctrlPublic.rutaPut = async (req, res) => {
-    const { titulo,resumen, descripcion,imagen, id } = req.body
+    const { titulo,resumen, descripcion, id } = req.body
 
-    const publicacion = await Public.findByIdAndUpdate(id, {titulo,resumen, descripcion,imagen}, { new: true })
+    const publicacion = await Public.findByIdAndUpdate(id, {titulo,resumen, descripcion}, { new: true })
    
     res.json({
         msg: 'La publicación se actualizado correctamente',
