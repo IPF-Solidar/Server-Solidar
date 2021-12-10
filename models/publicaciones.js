@@ -27,7 +27,15 @@ const PublicarSchema = new Schema({
         type: Number,
         required: true
     },
-    urlYoutube: {
+    numeroContacto: {
+        type: String,
+        default:null,
+    },
+    cvu: {
+        type: String,
+        default:null,
+    },
+    emailC: {
         type: String,
         default:null,
     },

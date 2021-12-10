@@ -31,13 +31,17 @@ ctrlHome.rutaGetUnico = async (req, res) => {
 
 
 ctrlHome.rutaGetPerfil = async (req, res) => {
-    const { email} = req.body;
-   
-    const user = await User.findOne({email});
+    const { email} = req.params;
+    try {
+        // Ejecución normal del programa
+       const usuario=  await User.findOne({email})
 
-    res.json({
-        user
-    }); 
+       //respuesta del servidor
+       res.json(usuario);
+    } catch (error) {
+        // Si ocurre un error 
+        console.log('Error al mostrar el usuario: ', error)
+    }
 }
 
 

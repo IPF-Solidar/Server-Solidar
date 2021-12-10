@@ -23,7 +23,7 @@ rutaGet)
 router.get('/api/get-user/:id',
 rutaGetUnico)
 
-router.get('/api/get-perfil',
+router.get('/api/get-perfil/:email',
 rutaGetPerfil)
 
 
