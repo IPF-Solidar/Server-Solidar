@@ -34,16 +34,21 @@ ctrlPublic.rutaGetUnico = async (req, res) => {
 // Controlador que almacena una nueva publicacion
 ctrlPublic.rutaPost = async (req, res) => {
      // Desestructuramos la información recibida del cliente
-    /* const { autor,titulo,resumen, descripcion,imagen,fechaInicio,fechaFinal} = req.body;
+    const { titulo, descripcion,departamento,objetivo,urlYoutube,fechaFinal} = req.body;
     // Se alamacena el nuevo usuario en la base de datos
-    const publicacion = new Public({autor,titulo,resumen, descripcion,imagen,fechaInicio,fechaFinal});
-    await publicacion.save()  */
+    const autor= req.usuario._id;
 
-    const body=req.body;
-    body.autor = req.usuario._id
-    const publicacion = new Public(body)
-    //console.log(publicacion)
-    await publicacion.save();
+    const publicacion = new Public({autor,titulo, descripcion,departamento,objetivo,urlYoutube,fechaFinal});
+
+    if(req.file){
+        const { filename }= req.file
+        publicacion.setImgUrl(filename) 
+    }
+
+    await publicacion.save() 
+
+
+    
 
     res.json({msg: 'La publicación se envio correctamente'});
 }
@@ -52,9 +57,9 @@ ctrlPublic.rutaPost = async (req, res) => {
 
 // Controlador que actualiza información de las publicaciones
 ctrlPublic.rutaPut = async (req, res) => {
-    const { titulo,resumen, descripcion,imagen, id } = req.body
+    const { titulo,resumen, descripcion, id } = req.body
 
-    const publicacion = await Public.findByIdAndUpdate(id, {titulo,resumen, descripcion,imagen}, { new: true })
+    const publicacion = await Public.findByIdAndUpdate(id, {titulo,resumen, descripcion}, { new: true })
    
     res.json({
         msg: 'La publicación se actualizado correctamente',

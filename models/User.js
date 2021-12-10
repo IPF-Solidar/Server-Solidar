@@ -35,6 +35,10 @@ const UserSchema = new Schema({
         type: String,
         default: 'usuario'
     },
+    fotoPerfil: {
+        type: String,
+        default: 'https://cdn-icons-png.flaticon.com/512/147/147144.png'
+    },
     activo: {
         type: Boolean,
         default: true

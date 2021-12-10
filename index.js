@@ -14,12 +14,16 @@ app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cors());
+app.use('/public',express.static(`${__dirname}/storage/imgs`))
+
 // Setttings
 app.set('port', process.env.PORT || 4000);
 
 // Routes
 app.use(require('./routes/user.routes'));
 app.use(require('./routes/public.routes'));
+app.use(require('./routes/coments.routes'));
+
 
 //Ponemos el servidor en escucha...
 app.listen(app.get('port'), ()=> console.log(`Server en linea en el puerto: ${app.get('port')}`))

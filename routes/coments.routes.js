@@ -11,30 +11,29 @@ const { siExisteRol, siExisteEmail } = require ('../middlewares/Validaciones'); 
 
 // Requerimos los controladores (funciones que contendrán la lógica del endpoint)
  const {
-     rutaGet,rutaGetUnico, rutaPost, rutaPut, rutaDelete
- } = require('../controllers/public.controllers')
+     rutaGet, rutaPost/* , rutaGetPublic *//* , rutaPut, rutaDelete */
+ } = require('../controllers/coments.controllers')
 
 //  Ruta para obtener todos las publicaciones
-router.get('/api/get-publicaciones',
+router.get('/api/get-comentarios',
 rutaGet)
 
-router.get('/api/get-publicaciones/:id',
-rutaGetUnico)
-
 // Ruta para guardar las publicaciones
-router.post('/api/create-publicacion',upload.single('image'),
+router.post('/api/create-comentarios',
 validar_jwt,
 rutaPost)
 
-// Actualizar las publicaciones
-router.put('/api/edit-publicacion/:id',
+/* router.get('/api/get-comentariosUnicos',
+rutaGetPublic) */
+
+/* // Actualizar las publicaciones
+router.put('/api/edit-Comentario/:id',
 validar_jwt,
 rutaPut)
 
 // Ruta para eliminar las publicaciones
-router.delete('/api/delete-publicacion/:id',
-
-rutaDelete)
+router.delete('/api/delete-Comentario/:id',
+rutaDelete) */
 
 
 module.exports = router;

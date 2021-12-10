@@ -14,6 +14,32 @@ ctrlHome.rutaGet = async (req, res) => {
 }
 
 
+ctrlHome.rutaGetUnico = async (req, res) => {
+    const { id } = req.params;
+    
+    try {
+        // Ejecución normal del programa
+       const usuario=  await User.findById(id)
+
+       //respuesta del servidor
+       res.json(usuario);
+    } catch (error) {
+        // Si ocurre un error 
+        console.log('Error al mostrar el usuario: ', error)
+    }
+};
+
+
+ctrlHome.rutaGetPerfil = async (req, res) => {
+    const { email} = req.body;
+   
+    const user = await User.findOne({email});
+
+    res.json({
+        user
+    }); 
+}
+
 
 // Controlador que almacena un nuevo usuario
 ctrlHome.rutaPost = async (req, res) => {
@@ -51,9 +77,16 @@ ctrlHome.rutaLogin = async (req, res) => {
     // Generar el token
     const token = await generar_jwt(user.id); 
     
-    
+    const correo = user.email
+    const nombre = user.nombre
+    const apellido = user.apellido
+    const perfil = user.fotoPerfil
     res.json({
-        token, 
+        token,
+        correo,
+        nombre,
+        apellido,
+        perfil
            //se envia el token generado
     }); 
 }
