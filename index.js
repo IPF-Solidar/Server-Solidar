@@ -9,6 +9,7 @@ require('./connection');
 const app = express();
 
 
+
 // Middlewares
 app.use(morgan('dev'));
 app.use(express.json());
@@ -19,10 +20,48 @@ app.use('/public',express.static(`${__dirname}/storage/imgs`))
 // Setttings
 app.set('port', process.env.PORT || 4000);
 
+
+
 // Routes
 app.use(require('./routes/user.routes'));
 app.use(require('./routes/public.routes'));
 app.use(require('./routes/coments.routes'));
+
+
+// SDK de Mercado Pago
+const mercadopago = require ('mercadopago');
+
+
+// Agrega credenciales
+mercadopago.configure({
+    access_token: 'APP_USR-6623451607855904-111502-1f258ab308efb0fb26345a2912a3cfa5-672708410'
+  });
+
+//routes
+app.post('/checkout', (req, res) => {
+// Crea un objeto de preferencia
+
+let preference = {
+    items: [
+      {
+        title:req.body.title,
+        unit_price: parseInt(req.body.price),
+        quantity: 1,
+      }
+    ]
+  };
+
+  console.log(preference)
+  
+  mercadopago.preferences.create(preference)
+  .then(function(response){
+  
+    res.redirect(response.body.init_point);
+   
+  }).catch(function(error){
+    console.log(error);
+  });
+});
 
 
 //Ponemos el servidor en escucha...
