@@ -17,13 +17,14 @@ const { siExisteRol, siExisteEmail } = require ('../middlewares/Validaciones');
 //  Ruta para obtener todos los usuarios
 router.get('/api/get-user', 
 validar_jwt,
-verficarAdmin,
 rutaGet)
 
 router.get('/api/get-user/:id',
+validar_jwt,
 rutaGetUnico)
 
 router.get('/api/get-perfil/:email',
+
 rutaGetPerfil)
 
 
@@ -31,8 +32,32 @@ rutaGetPerfil)
 router.post('/api/create-user',
 
 body('nombre','El nombre es incorrecto')
+.not()
+.isEmpty()
 ,
 body('apellido','El apellido es incorrecto')
+.not()
+.isEmpty()
+,
+body('dni','El dni es incorrecto')
+.not()
+.isEmpty()
+.isNumeric()
+.isLength({min: 7})
+,
+body('fecha_nacimiento','La fecha de nacimiento es incorrecta')
+.not()
+.isEmpty()
+,
+body('domicilio','El domicilio es Incorrecto')
+.not()
+.isEmpty()
+,
+body('email','El email es incorrecto')
+.not()
+.isEmpty()
+.isEmail()
+.custom(siExisteEmail)
 ,
 body('password','La contraseña debe contener 6 caracteres')
 .isLength({min: 6})
@@ -46,18 +71,44 @@ router.post('/api/login-user', rutaLogin)
 // Actualizar usuarios
 router.put('/api/edit-user/:id',
 validar_jwt,
-verficarAdmin,
-body('username','El Email es incorrecto').isEmail(),
-body('password','La contrase debe contener 6 caracteres').isLength({min: 6}),
-body('role', 'El rol no es valido').custom(siExisteRol),
-body('id','La id no es valida').isMongoId(),
-validarCampos, rutaPut)
+body('nombre','El nombre es incorrecto')
+.not()
+.isEmpty()
+,
+body('apellido','El apellido es incorrecto')
+.not()
+.isEmpty()
+,
+body('dni','El dni es incorrecto')
+.not()
+.isEmpty()
+.isNumeric()
+.isLength({min: 7})
+,
+body('fecha_nacimiento','La fecha de nacimiento es incorrecta')
+.not()
+.isEmpty()
+,
+body('domicilio','El domicilio es Incorrecto')
+.not()
+.isEmpty()
+,
+body('email','El email es incorrecto')
+.not()
+.isEmpty()
+.isEmail()
+,
+body('password','La contraseña debe contener 6 caracteres')
+.isLength({min: 6})
+.not()
+.isEmpty(),
+validarCampos, 
+rutaPut)
 
 // Ruta para eliminar un usuario - actualiza el estado
 router.put('/api/desactivar-user/:id',
 body('id','La id no es valida').isMongoId(), 
 validar_jwt,
-verficarAdmin,
 deleteUser)
 
 

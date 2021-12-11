@@ -41,7 +41,7 @@ mercadopago.configure({
 app.post('/checkout', (req, res) => {
 // Crea un objeto de preferencia
 /* var precio = parseInt(req.body.price) + 500; */
-
+/* const local = 'http://localhost:3000/' */
 let preference = {
     items: [
       {

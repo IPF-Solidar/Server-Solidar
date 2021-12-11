@@ -34,11 +34,11 @@ ctrlPublic.rutaGetUnico = async (req, res) => {
 // Controlador que almacena una nueva publicacion
 ctrlPublic.rutaPost = async (req, res) => {
      // Desestructuramos la información recibida del cliente
-    const { titulo, descripcion,departamento,objetivo,urlYoutube,numeroContacto,cvu,emailC,fechaFinal} = req.body;
+    const { titulo, descripcion,departamento,objetivo,urlYoutube,numeroContacto,cvu,emailC,mpMercadoPago,mpCriptomonedas,fechaFinal} = req.body;
     // Se alamacena el nuevo usuario en la base de datos
     const autor= req.usuario._id;
 
-    const publicacion = new Public({autor,titulo, descripcion,departamento,objetivo,urlYoutube,numeroContacto,cvu,emailC,fechaFinal});
+    const publicacion = new Public({autor,titulo, descripcion,departamento,objetivo,urlYoutube,numeroContacto,cvu,emailC,mpMercadoPago,mpCriptomonedas,fechaFinal});
 
     if(req.file){
         const { filename }= req.file

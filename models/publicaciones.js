@@ -47,13 +47,18 @@ const PublicarSchema = new Schema({
         type: Number,
         default:0
     },
+    mpMercadoPago: {
+        type: String,
+        default:null
+    },
+    mpCriptomonedas: {
+        type: String,
+        default:null
+    },
     activo: {
         type: Boolean,
         default: true
     }
-    
-    
-
 });
 
 PublicarSchema.methods.setImgUrl = function setImgUrl (filename) {
