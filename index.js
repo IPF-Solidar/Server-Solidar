@@ -28,6 +28,8 @@ app.use(require('./routes/public.routes'));
 app.use(require('./routes/coments.routes'));
 
 
+
+////////////////////////////// Mercado Pago ///////////////////////////////////////////
 // SDK de Mercado Pago
 const mercadopago = require ('mercadopago');
 
@@ -63,7 +65,7 @@ let preference = {
     console.log(error);
   });
 });
-
+////////////////////////////// Mercado Pago ///////////////////////////////////////////
 
 //Ponemos el servidor en escucha...
 app.listen(app.get('port'), ()=> console.log(`Server en linea en el puerto: ${app.get('port')}`))

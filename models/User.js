@@ -1,5 +1,5 @@
 const { model, Schema } = require('mongoose');
-
+const { appConfig } = require('../config')
 //provincia - localidad
 
 const UserSchema = new Schema({
@@ -37,13 +37,18 @@ const UserSchema = new Schema({
     },
     fotoPerfil: {
         type: String,
-        default: 'https://cdn-icons-png.flaticon.com/512/147/147144.png'
+        default:null
     },
     activo: {
         type: Boolean,
         default: true
     }
 });
+
+UserSchema.methods.setImgUrl = function setImgUrl (filename) {
+    const {host, port } = appConfig
+    this.fotoPerfil = `${host}:${port}/public/${filename}`
+}
 
 
 module.exports = model('User', UserSchema);

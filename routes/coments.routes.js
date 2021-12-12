@@ -11,7 +11,7 @@ const { siExisteRol, siExisteEmail } = require ('../middlewares/Validaciones'); 
 
 // Requerimos los controladores (funciones que contendrán la lógica del endpoint)
  const {
-     rutaGet, rutaPost/* , rutaGetPublic *//* , rutaPut, rutaDelete */
+     rutaGet, rutaPost, rutaGetPublic/* , rutaPut, rutaDelete */
  } = require('../controllers/coments.controllers')
 
 //  Ruta para obtener todos las publicaciones
@@ -23,8 +23,8 @@ router.post('/api/create-comentarios',
 validar_jwt,
 rutaPost)
 
-/* router.get('/api/get-comentariosUnicos',
-rutaGetPublic) */
+router.get('/api/get-comentariosUnicos/:public',
+rutaGetPublic)
 
 /* // Actualizar las publicaciones
 router.put('/api/edit-Comentario/:id',

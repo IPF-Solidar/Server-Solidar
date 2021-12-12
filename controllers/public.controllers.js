@@ -50,7 +50,9 @@ ctrlPublic.rutaPost = async (req, res) => {
 
     
 
-    res.json({msg: 'La publicación se envio correctamente'});
+    res.json({
+        
+        msg: 'La publicación se envio correctamente'});
 }
 
 

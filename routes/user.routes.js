@@ -6,7 +6,7 @@ const {verficarAdmin} = require('../middlewares/validar_roles')
 const { body } = require('express-validator');
 const { validarCampos } = require ('../helpers/validar_campos');
 const { siExisteRol, siExisteEmail } = require ('../middlewares/Validaciones');
-
+const upload = require('../libs/storage')
 
 // Requerimos los controladores (funciones que contendrán la lógica del endpoint)
  const {
@@ -20,7 +20,6 @@ validar_jwt,
 rutaGet)
 
 router.get('/api/get-user/:id',
-validar_jwt,
 rutaGetUnico)
 
 router.get('/api/get-perfil/:email',
@@ -69,9 +68,9 @@ rutaPost)
 router.post('/api/login-user', rutaLogin)
 
 // Actualizar usuarios
-router.put('/api/edit-user/:id',
+router.put('/api/edit-user',upload.single('image'),
 validar_jwt,
-body('nombre','El nombre es incorrecto')
+/* body('nombre','El nombre es incorrecto')
 .not()
 .isEmpty()
 ,
@@ -102,7 +101,7 @@ body('password','La contraseña debe contener 6 caracteres')
 .isLength({min: 6})
 .not()
 .isEmpty(),
-validarCampos, 
+validarCampos,  */
 rutaPut)
 
 // Ruta para eliminar un usuario - actualiza el estado

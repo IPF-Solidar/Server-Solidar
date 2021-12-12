@@ -98,10 +98,15 @@ ctrlHome.rutaLogin = async (req, res) => {
 
 // Controlador que actualiza información de los usuarios
 ctrlHome.rutaPut = async (req, res) => {
-    const { nombre,apellido,dni,fecha_nacimiento,domicilio,email, password, id } = req.body
+    const {  id } = req.body
 
-    const user = await User.findByIdAndUpdate(id, {nombre,apellido,dni,fecha_nacimiento,domicilio,email, password}, { new: true })
+    const user = await User.findByIdAndUpdate(id, {}, { new: true })
    
+    if(req.file){
+        const { filename }= req.file
+        user.setImgUrl(filename) 
+    }
+    console.log(user)
     res.json({
         msg: 'Usuario actualizado correctamente',
         user
