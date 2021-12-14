@@ -8,7 +8,7 @@ const ComentariosSchema = new Schema({
     public:{ type: Schema.Types.ObjectId , ref:"Publicacion"},
     
     fecha: {
-        type: Date,
+        type: String,
         require: true
     },
     descripcion: {

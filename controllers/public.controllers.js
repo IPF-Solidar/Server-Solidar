@@ -59,9 +59,9 @@ ctrlPublic.rutaPost = async (req, res) => {
 
 // Controlador que actualiza información de las publicaciones
 ctrlPublic.rutaPut = async (req, res) => {
-    const { titulo,resumen, descripcion, id } = req.body
-
-    const publicacion = await Public.findByIdAndUpdate(id, {titulo,resumen, descripcion}, { new: true })
+    const { id } = req.params;
+    const { dineroActual } = req.body
+    const publicacion = await Public.findByIdAndUpdate(id, {dineroActual}, { new: true })
    
     res.json({
         msg: 'La publicación se actualizado correctamente',

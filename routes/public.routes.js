@@ -45,26 +45,8 @@ validarCampos,
 rutaPost)
 
 // Actualizar las publicaciones
-router.put('/api/edit-publicacion/:id',
+router.put('/api/editMonto-publicacion/:id',
 validar_jwt,
-body('titulo','El titulo no existe')
-.not()
-.isEmpty(),
-body('descripcion','Falta la descripción')
-.not()
-.isEmpty(),
-
-body('departamento', 'No existe el departamento')
-.not()
-.isEmpty(),
-body('objetivo', 'El objetivo no es valido')
-.not()
-.isEmpty()
-.isNumeric(),
-body('fechaFinal', 'La fecha no existe')
-.not()
-.isEmpty(),
-validarCampos,
 rutaPut)
 
 // Ruta para eliminar las publicaciones
